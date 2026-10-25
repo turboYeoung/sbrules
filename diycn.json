@@ -2,6 +2,9 @@
   "version": 2,
   "rules": [
     {
+      "domain": [
+         "see.krfly.com"
+        ],
       "domain_keyword": [
         "123pan",
         "quark",
