@@ -5,9 +5,7 @@
       "domain_keyword": [
         "123pan",
         "quark",
-        "icloud.com.cn",
-        "hongguoduanju",
-        "qznovelvod.com" 
+        "hongguoduanju"
         ],
       "domain_suffix": [
         "speedtest.cn",
@@ -52,6 +50,7 @@
         "itunes.apple.com",
         "apps.apple.com",
         "mzstatic.com",
+        "icloud.com.cn",
         "testflight.apple.com",
         "123865.com",
         "123.com",
@@ -60,6 +59,7 @@
         "user.123pan.cn",
         "vip.123pan.cn",
         "48.cn",
+        "qznovelvod.com", 
         "cctv.com"
       ]
     }
