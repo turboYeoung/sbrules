@@ -2,13 +2,13 @@
   "version": 2,
   "rules": [
     {
-            "domain_keyword": [
-              "123pan",
-              "quark",
-              "icloud.com.cn",
-              "hongguoduanju",
-              "qznovelvod.com" 
-            ],
+      "domain_keyword": [
+        "123pan",
+        "quark",
+        "icloud.com.cn",
+        "hongguoduanju",
+        "qznovelvod.com" 
+        ],
       "domain_suffix": [
                "speedtest.cn",
                "quark.cn",
@@ -58,7 +58,8 @@
                "yun.123pan.cn",
                "user.123pan.cn",
                "vip.123pan.cn",
-               "48.cn"
+               "48.cn",
+               "cctv.com"
       ]
     }
   ]
