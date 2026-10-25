@@ -1,0 +1,53 @@
+
+name: Build DIYCN Rule Set
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'diycn.json'
+      - '.github/workflows/build.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download sing-box
+        shell: bash
+        run: |
+          set -e
+          VERSION=1.14.4
+          mkdir -p sing-box-bin
+          curl -fL \
+            "https://github.com/SagerNet/sing-box/releases/download/v${VERSION}/sing-box-${VERSION}-linux-amd64.tar.gz" \
+            -o sing-box.tar.gz
+          tar -xzf sing-box.tar.gz --strip-components=1 -C sing-box-bin
+          chmod +x sing-box-bin/sing-box
+          ./sing-box-bin/sing-box version
+
+      - name: Compile rule set
+        run: |
+          ./sing-box-bin/sing-box rule-set compile \
+            --output diycn.srs \
+            diycn.json
+
+      - name: Commit updated rule set
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add diycn.srs
+          if git diff --cached --quiet; then
+            echo "Rule set unchanged."
+          else
+            git commit -m "Auto-build diycn.srs"
+            git push
+          fi
