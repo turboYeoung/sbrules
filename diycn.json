@@ -3,12 +3,13 @@
   "rules": [
     {
       "domain": [
-        "see.krfly.com"
+        "see.krfly.com.cn"
       ],
       "domain_keyword": [
         "123pan",
         "quark",
-        "hongguoduanju"
+        "hongguoduanju",
+        "share.123pan.cn"
       ],
       "domain_suffix": [
         "10cong.com",
