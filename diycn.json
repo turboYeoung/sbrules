@@ -2,6 +2,12 @@
   "version": 2,
   "rules": [
     {
+      "ip_cidr": [
+          "50.117.27.0/24",
+          "69.46.75.0/24",
+          "205.164.56.0/24",
+          "63.251.124.0/24"
+        ],
       "domain": [
         "see.krfly.com.cn"
       ],
@@ -57,7 +63,16 @@
         "vip.123pan.cn",
         "wangwangzyvod.com",
         "yun.123pan.cn",
-        "zhenyunpan.com"
+        "zhenyunpan.com",
+        "mobilefuse.com",
+        "inmobi.com",
+        "crashlytics.com",
+        "talkatone.com",
+        "kochava.com",
+        "cohere.com",
+        "ip-api.com",
+        "agkn.com",
+        "tktn.at"
       ]
     }
   ]
