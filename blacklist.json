@@ -3,8 +3,14 @@
   "rules": [
     {
       "domain": [
-        "example.com"
+        "mcdn.bilivideo.com",
+        "mcdn.bilivideo.cn"
+      ],
+      "domain_suffix": [
+        "example.org",
+        "abc.net"
       ]
     }
   ]
 }
+
