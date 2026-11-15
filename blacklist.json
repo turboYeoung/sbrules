@@ -4,12 +4,16 @@
     {
       "domain": [
         "mcdn.bilivideo.com",
-        "mcdn.bilivideo.cn"
+        "mcdn.bilivideo.cn",
+        "pcdn..biliapi.net"
       ],
       "domain_suffix": [
         "falundafa.org",
         "minghui.org",
         "epochtimes.com",
+        "mcdn.bilivideo.com",
+        "mcdn.bilivideo.cn",
+        "pcdn..biliapi.net",
         "dyp2p-ali.douyucdn.cn",
         "dyp2p-hw.douyucdn.cn",
         "ietheivaicai.com",
