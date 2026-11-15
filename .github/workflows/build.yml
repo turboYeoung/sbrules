@@ -1,5 +1,5 @@
 
-name: Build DIYCN Rule Set
+name: Build DIYCN Rule Sets
 
 on:
   push:
@@ -7,6 +7,7 @@ on:
       - main
     paths:
       - 'diycn.json'
+      - 'blacklist.json'
       - '.github/workflows/build.yml'
   workflow_dispatch:
 
@@ -34,20 +35,28 @@ jobs:
           chmod +x sing-box-bin/sing-box
           ./sing-box-bin/sing-box version
 
-      - name: Compile rule set
+      - name: Compile rule sets
         run: |
+          set -e
+
           ./sing-box-bin/sing-box rule-set compile \
             --output diycn.srs \
             diycn.json
 
-      - name: Commit updated rule set
+          ./sing-box-bin/sing-box rule-set compile \
+            --output blacklist.srs \
+            blacklist.json
+
+      - name: Commit updated rule sets
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add diycn.srs
+
+          git add diycn.srs blacklist.srs
+
           if git diff --cached --quiet; then
-            echo "Rule set unchanged."
+            echo "Rule sets unchanged."
           else
-            git commit -m "Auto-build diycn.srs"
+            git commit -m "Auto-build rule sets"
             git push
           fi
