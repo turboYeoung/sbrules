@@ -1,17 +1,25 @@
 
+# Workflow 名称
 name: Build DIYCN Rule Sets
 
+# 触发条件
 on:
   push:
     branches:
       - main
     paths:
+      # 监听规则源文件，修改后自动编译
       - 'diycn.json'
       - 'blacklist.json'
       - 'proxy'
+
+      # 修改 Workflow 本身时也自动执行
       - '.github/workflows/build.yml'
+
+  # 允许在 GitHub Actions 页面手动执行
   workflow_dispatch:
 
+# 允许 Actions 自动提交生成的文件
 permissions:
   contents: write
 
@@ -20,48 +28,69 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 第一步：检出仓库
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # 第二步：下载 sing-box
       - name: Download sing-box
         shell: bash
         run: |
           set -e
+
+          # sing-box 版本
           VERSION=1.14.4
+
           mkdir -p sing-box-bin
+
+          # 下载 Linux AMD64 版本
           curl -fL \
             "https://github.com/SagerNet/sing-box/releases/download/v${VERSION}/sing-box-${VERSION}-linux-amd64.tar.gz" \
             -o sing-box.tar.gz
+
+          # 解压程序
           tar -xzf sing-box.tar.gz --strip-components=1 -C sing-box-bin
+
           chmod +x sing-box-bin/sing-box
+
+          # 显示版本信息
           ./sing-box-bin/sing-box version
 
+      # 第三步：编译规则文件
       - name: Compile rule sets
         run: |
           set -e
 
+          # 国内规则：diycn.json → diycn.srs
           ./sing-box-bin/sing-box rule-set compile \
             --output diycn.srs \
             diycn.json
 
+          # 黑名单规则：blacklist.json → blacklist.srs
           ./sing-box-bin/sing-box rule-set compile \
             --output blacklist.srs \
             blacklist.json
 
+          # 代理规则：proxy → proxy.srs
           ./sing-box-bin/sing-box rule-set compile \
             --output proxy.srs \
             proxy
 
+      # 第四步：自动提交生成的 SRS 文件
       - name: Commit updated rule sets
         run: |
+          # 设置 GitHub Actions 提交身份
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
+          # 添加编译生成的规则文件
           git add diycn.srs blacklist.srs proxy.srs
 
+          # 检查文件是否发生变化
           if git diff --cached --quiet; then
             echo "Rule sets unchanged."
           else
+            # 提交并推送
             git commit -m "Auto-build rule sets"
             git push
           fi
